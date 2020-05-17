@@ -1,0 +1,1 @@
+# Words translation chrome extension
