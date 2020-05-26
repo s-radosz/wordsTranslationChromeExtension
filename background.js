@@ -3,7 +3,9 @@
 //all external actions should be make by chrome api's
 
 saveWordTranslation = (word) => {
-    alert(word.selectionText)
+    //alert(word.selectionText)
+
+    getTranslation("en", "pl", word.selectionText)
 };
 
 chrome.contextMenus.create({
@@ -11,3 +13,45 @@ chrome.contextMenus.create({
     contexts:["selection"],
     onclick: saveWordTranslation
 });
+
+const getTranslation = async (fromLanguage, toLanguage, text) =>{
+    //alert([fromLanguage, toLanguage, text]);
+
+    let user = await getUserInfo();
+
+    fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${fromLanguage}&tl=${toLanguage}&dt=t&q=${text}`)
+        .then(response => response.json())
+        .then(json => {
+            let translatedWord = json[0][0][0];
+
+            // alert(user.token)
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://127.0.0.1:8000/api/words/save", true);
+            xhr.setRequestHeader('Authorization', 'Bearer ' + user.token);
+
+            let data = new FormData();
+            data.append('userId', user.id);
+            data.append('en', text);
+            data.append('pl', translatedWord);
+
+            xhr.send(data);
+
+            xhr.onreadystatechange = async function() {
+                if (xhr.readyState == 4) {
+                    let response = JSON.parse(readBody(xhr))
+                    
+                    //invalid credentials
+                    if(xhr.status !== 201) {
+                        alert(["Can't save", xhr.status])
+                    }
+                    //success sign in
+                    else{
+                        alert(`'${text}' saved! Translation: ${translatedWord}`)
+                    }
+                }
+            }  
+           
+            // alert(json[0][0][0])
+        });
+}
