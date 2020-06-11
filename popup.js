@@ -84,8 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 "email": email,
                 "id": userId
             }}, function(){
-                document.getElementById('userEmail').innerHTML = `User: ${email} ${userId}`;
-                handleSetAlert("User sign in", "success")
+                document.getElementById('userEmail').innerHTML = `Użytkownik: ${email} ${userId}`;
+                handleSetAlert("Poprawnie zalogowano", "success")
                 showLogout();
             });
 

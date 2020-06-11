@@ -10,7 +10,7 @@ saveWordTranslation = (word) => {
 };
 
 chrome.contextMenus.create({
-    title: "Save word translation",
+    title: "Zapisz do Praktycznego Angielskiego",
     contexts:["selection"],
     onclick: saveWordTranslation
 });
@@ -43,11 +43,11 @@ const getTranslation = async (fromLanguage, toLanguage, text) =>{
                     
                     //invalid credentials
                     if(xhr.status !== 200) {
-                        alert(["Can't save", xhr.status])
+                        alert(["Nie można zapisać, zaloguj się ponownie we wtyczce.", xhr.status])
                     }
                     //success sign in
                     else{
-                        alert(`'${text}' saved! Translation: ${translatedWord}`)
+                        alert(`Zapisano '${text}'! Tłumaczenie: ${translatedWord}`)
                     }
                 }
             }  
