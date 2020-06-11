@@ -12,11 +12,11 @@ h1 {
 }
 
 button {
-    border: 2px solid #FFCC00;
-    background-color: #FFCC00;
+    border: 2px solid #cf142b;
+    background-color: #cf142b;
+    color: #fff;
     font-size: 12px;
     text-transform: uppercase;
-    color: #000;
     transition: 0.3s;
     border-radius: 20px;
     margin: 0 auto;
@@ -27,10 +27,25 @@ button {
 button:hover {
     background-color: #fff;
     cursor: pointer;
+    color: #000;
 }
 
 #formLogin input {
     border: 1px solid rgb(170, 170, 170);
     border-radius: 4px;
     margin-bottom: 5px;
+}
+
+#loaderContainer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+button:focus, button:visited {
+    outline: 1px solid #ccc; 
 }

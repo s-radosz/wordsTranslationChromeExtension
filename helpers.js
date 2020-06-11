@@ -26,7 +26,5 @@ function readBody(xhr) {
     return data;
 }
 
-modules.exports = {
-    getUserInfo: getUserInfo,
-    readBody: readBody
-};
+modules.exports.getUserInfo = getUserInfo,
+modules.exports.readBody = readBody;

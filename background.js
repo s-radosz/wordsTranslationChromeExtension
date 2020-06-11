@@ -2,6 +2,7 @@
 //window object not exists in popup.js, plugin is outside the DOM 
 //all external actions should be make by chrome api's
 
+
 saveWordTranslation = (word) => {
     //alert(word.selectionText)
 
@@ -24,7 +25,6 @@ const getTranslation = async (fromLanguage, toLanguage, text) =>{
         .then(json => {
             let translatedWord = json[0][0][0];
 
-            // alert(user.token)
 
             const xhr = new XMLHttpRequest();
             xhr.open("POST", "http://127.0.0.1:8000/api/words/save", true);
@@ -42,7 +42,7 @@ const getTranslation = async (fromLanguage, toLanguage, text) =>{
                     let response = JSON.parse(readBody(xhr))
                     
                     //invalid credentials
-                    if(xhr.status !== 201) {
+                    if(xhr.status !== 200) {
                         alert(["Can't save", xhr.status])
                     }
                     //success sign in
@@ -55,3 +55,32 @@ const getTranslation = async (fromLanguage, toLanguage, text) =>{
             // alert(json[0][0][0])
         });
 }
+
+function getUserInfo() {
+    return new Promise((resolve) => {
+        chrome.storage.local.get(["user"], function(response){
+            let user = JSON.parse(JSON.stringify(response.user));
+            if(user.email && user.token) {
+                resolve({
+                    token: user.token,
+                    email: user.email,
+                    id: user.id
+                })
+            }
+            resolve("")
+        });
+    })
+}
+
+function readBody(xhr) {
+    var data;
+    if (!xhr.responseType || xhr.responseType === "text") {
+        data = xhr.responseText;
+    } else if (xhr.responseType === "document") {
+        data = xhr.responseXML;
+    } else {
+        data = xhr.response;
+    }
+    return data;
+}
+

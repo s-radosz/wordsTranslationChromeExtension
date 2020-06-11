@@ -2,46 +2,72 @@ document.addEventListener("DOMContentLoaded", async () => {
     let loginBtn = document.getElementById("submit");
     let logoutBtn = document.getElementById('logoutBtn');
 
+    let loader = document.getElementById("loaderContainer");
+
     let userInfo = await getUserInfo();
+
+    //alert(["userInfo.token", userInfo.token])
 
     if(!userInfo.token) {
         showForm();
 
         //login click listener
         loginBtn.addEventListener("click", function(e) {
+            //alert(["click"])
             e.preventDefault();
             
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
 
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://127.0.0.1:8000/api/login", true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                email: email,
-                password: password
-            }));
+            if(email && password) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "http://127.0.0.1:8000/api/login", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    email: email,
+                    password: password
+                }));
+    
+                //loader start
+                loader.style.display = "block"
+    
+                xhr.onreadystatechange = async function() {
+                    if (xhr.readyState == 4) {
+                        let response = JSON.parse(readBody(xhr))
+                        // alert(response)
+                        
+                        //invalid credentials
+                        if(xhr.status !== 200) {
+                            await handleLogout();
+    
+                            handleSetAlert(response.result, "danger")
+    
+                            //loader stop
+                            loader.style.display = "none"
+                        }
+                        //success sign in
+                        else{
+                            let userToken = response.result.token;
+                            let userEmail = response.result.user.email;
+                            let userId = response.result.user.id;
 
-            xhr.onreadystatechange = async function() {
-                if (xhr.readyState == 4) {
-                    let response = JSON.parse(readBody(xhr))
-                    
-                    //invalid credentials
-                    if(xhr.status !== 200) {
-                        await handleLogout();
+                            //loader stop
+                            loader.style.display = "none"
+    
+                            await handleSetUser(userToken, userEmail, userId)
 
-                        handleSetAlert(response.result, "danger")
+                            showLogout();
+
+                            document.getElementById('userEmail').innerHTML = `User: ${userEmail} ${userId}`;
+                            logoutBtn.addEventListener("click", async function() {
+                                await handleLogout();
+                            })
+                        }
                     }
-                    //success sign in
-                    else{
-                        let userToken = response.result.token;
-                        let userEmail = response.result.user.email;
-                        let userId = response.result.user.id;
-
-                        await handleSetUser(userToken, userEmail, userId)
-                    }
-                }
-            }  
+                }  
+            } else {
+                handleSetAlert("Prosimy podać nazwę i hasło", "danger")
+            }
         });
     } else{
         showLogout();

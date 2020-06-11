@@ -11,19 +11,22 @@
         <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        <h1>Word translation saver extension1</h1>
+        <h1>Praktyczny angielski</h1>
 
         <form id="formLogin">
             <input id="email" placeholder="Email" />
-            <input id="password" type="password" placeholder="Password" />
+            <input id="password" type="password" placeholder="Hasło" />
     
-            <button id="submit">Login</button>
+            <button id="submit">Zaloguj</button>
         </form>
 
+        <div id="loaderContainer">
+            <img src="images/loader.gif" />
+        </div>
         <p id="userEmail"></p>
         <p id="alert"></p>
         
-        <button id="logoutBtn" title="Log out">Log out</button>
+        <button id="logoutBtn" title="Log out">Wyloguj</button>
 
         <script src="helpers.js"></script>
         <script src="popup.js"></script>
