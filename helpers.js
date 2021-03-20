@@ -1,15 +1,19 @@
 function getUserInfo() {
     return new Promise((resolve) => {
-        chrome.storage.local.get(["user"], function(response){
-            let user = JSON.parse(JSON.stringify(response.user));
-            if(user.email && user.token) {
-                resolve({
-                    token: user.token,
-                    email: user.email,
-                    id: user.id
-                })
+        chrome.storage.local.get("user", function(response){
+            if(response && response.user) {
+                let user = JSON.parse(JSON.stringify(response.user));
+    
+                if(user.email && user.token) {
+                    resolve({
+                        token: user.token,
+                        email: user.email,
+                        id: user.id
+                    })
+                }
+            }else {
+                resolve("")
             }
-            resolve("")
         });
     })
 }

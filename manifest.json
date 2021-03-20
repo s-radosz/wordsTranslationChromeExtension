@@ -3,7 +3,7 @@
 
     "name": "Praktyczny Angielski",
     "description": "Ucz się angielskiego jakiego potrzebujesz",
-    "version": "1.0",
+    "version": "1.4",
     "author": "Szymon Radosz - tech-bulb.com",
     "browser_action": {
         "default_icon": "icon.png",
@@ -14,9 +14,9 @@
         "contextMenus", 
         "tabs",
         "storage",
-        "http://127.0.0.1:8000/",
-        "http://127.0.0.1:8000/api/login",
-        "http://127.0.0.1:8000/api/words/save"
+        "https://www.praktyczny-angielski.pl",
+        "https://www.praktyczny-angielski.pl/api/login",
+        "https://www.praktyczny-angielski.pl/api/words/save"
     ],
     "background": {
         "scripts": ["background.js"]

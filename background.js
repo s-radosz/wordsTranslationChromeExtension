@@ -27,7 +27,7 @@ const getTranslation = async (fromLanguage, toLanguage, text) =>{
 
 
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://127.0.0.1:8000/api/words/save", true);
+            xhr.open("POST", "https://www.praktyczny-angielski.pl/api/words/save", true);
             xhr.setRequestHeader('Authorization', 'Bearer ' + user.token);
 
             let data = new FormData();

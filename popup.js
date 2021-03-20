@@ -3,17 +3,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     let logoutBtn = document.getElementById('logoutBtn');
 
     let loader = document.getElementById("loaderContainer");
-
     let userInfo = await getUserInfo();
-
-    //alert(["userInfo.token", userInfo.token])
 
     if(!userInfo.token) {
         showForm();
 
         //login click listener
         loginBtn.addEventListener("click", function(e) {
-            //alert(["click"])
             e.preventDefault();
             
             let email = document.getElementById("email").value;
@@ -21,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if(email && password) {
                 const xhr = new XMLHttpRequest();
-                xhr.open("POST", "http://127.0.0.1:8000/api/login", true);
+                xhr.open("POST", "https://www.praktyczny-angielski.pl/api/login", true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
                     email: email,
