@@ -1,18 +1,21 @@
 {
     "manifest_version": 2,
-
     "name": "Praktyczny Angielski",
     "description": "Ucz się angielskiego jakiego potrzebujesz",
-    "version": "1.4",
-    "author": "Szymon Radosz - tech-bulb.com",
+    "version": "1.0.4",
+    "author": "Szymon Radosz",
     "browser_action": {
         "default_icon": "icon.png",
         "default_popup": "popup.html",
         "default_title": "Praktyczny Angielski"
     },
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
     "permissions": [
-        "contextMenus", 
-        "tabs",
+        "contextMenus",
         "storage",
         "https://www.praktyczny-angielski.pl",
         "https://www.praktyczny-angielski.pl/api/login",
